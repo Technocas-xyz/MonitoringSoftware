@@ -1,0 +1,156 @@
+.card {
+  padding: 20px 22px;
+  position: relative;
+  overflow: hidden;
+}
+.cardHover {
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.cardHover:hover {
+  transform: translateY(-3px);
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-1);
+}
+
+.statDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  margin-bottom: 16px;
+  box-shadow: 0 0 16px currentColor;
+}
+.statValue {
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  line-height: 1;
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+.statSuffix {
+  font-size: 15px;
+  color: var(--text-dim);
+  font-weight: 600;
+}
+.statLabel {
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--text-dim);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+  background: rgba(255, 255, 255, 0.03);
+  white-space: nowrap;
+}
+.badgeDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+}
+
+.ring {
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+.ringLabel {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.ringValue {
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+.ringCap {
+  font-size: 11px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin-top: 2px;
+}
+
+.spinner {
+  border-style: solid;
+  border-color: rgba(255, 255, 255, 0.15);
+  border-top-color: var(--accent);
+  border-radius: 999px;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.skelWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.empty {
+  text-align: center;
+  padding: 54px 20px;
+  color: var(--text-dim);
+}
+.emptyMark {
+  font-size: 36px;
+  opacity: 0.4;
+  margin-bottom: 10px;
+}
+.emptyTitle {
+  font-weight: 600;
+  color: var(--text);
+}
+.emptyHint {
+  font-size: 13px;
+  margin-top: 4px;
+  color: var(--text-faint);
+}
+
+.pageHeader {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 26px;
+  flex-wrap: wrap;
+}
+.pageTitle {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+.pageSub {
+  color: var(--text-dim);
+  margin-top: 4px;
+  font-size: 14px;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: #0b0f1e;
+  background: var(--grad-primary);
+  flex-shrink: 0;
+}

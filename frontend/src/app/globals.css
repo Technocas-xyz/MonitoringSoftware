@@ -1,0 +1,179 @@
+/* ============================================================
+   Design system — sleek, modern, dark glass aesthetic
+   ============================================================ */
+
+:root {
+  /* Palette */
+  --bg-0: #070912;
+  --bg-1: #0b0f1e;
+  --bg-2: #10162b;
+  --surface: rgba(255, 255, 255, 0.04);
+  --surface-2: rgba(255, 255, 255, 0.06);
+  --surface-strong: rgba(255, 255, 255, 0.09);
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.16);
+
+  --text: #eef1fb;
+  --text-dim: #9aa3c4;
+  --text-faint: #6b7398;
+
+  /* Accents */
+  --accent: #6c8cff;
+  --accent-2: #9b6cff;
+  --accent-3: #35d6c3;
+  --grad-primary: linear-gradient(120deg, #6c8cff 0%, #9b6cff 55%, #35d6c3 120%);
+  --grad-soft: linear-gradient(120deg, rgba(108,140,255,0.18), rgba(155,108,255,0.14));
+
+  /* Status */
+  --ok: #38d39f;
+  --warn: #ffcf5c;
+  --danger: #ff6b81;
+  --info: #6c8cff;
+
+  /* Radii + shadows */
+  --r-sm: 10px;
+  --r-md: 16px;
+  --r-lg: 22px;
+  --shadow-1: 0 10px 30px rgba(0, 0, 0, 0.35);
+  --shadow-glow: 0 0 40px rgba(108, 140, 255, 0.25);
+
+  --nav-w: 248px;
+  --font: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: var(--font);
+  color: var(--text);
+  background:
+    radial-gradient(1200px 600px at 12% -8%, rgba(108, 140, 255, 0.18), transparent 60%),
+    radial-gradient(1000px 500px at 100% 0%, rgba(155, 108, 255, 0.14), transparent 55%),
+    radial-gradient(900px 700px at 50% 120%, rgba(53, 214, 195, 0.10), transparent 60%),
+    var(--bg-0);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  letter-spacing: 0.1px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::selection {
+  background: rgba(108, 140, 255, 0.35);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+/* ---------- Utility primitives ---------- */
+.glass {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.gradient-text {
+  background: var(--grad-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.muted {
+  color: var(--text-dim);
+}
+.faint {
+  color: var(--text-faint);
+}
+
+/* Animated aurora blobs used on auth/marketing surfaces */
+.aurora {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+.aurora span {
+  position: absolute;
+  width: 46vw;
+  height: 46vw;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.5;
+  animation: float 18s ease-in-out infinite;
+}
+.aurora span:nth-child(1) {
+  background: #6c8cff;
+  top: -12%;
+  left: -8%;
+}
+.aurora span:nth-child(2) {
+  background: #9b6cff;
+  bottom: -18%;
+  right: -6%;
+  animation-delay: -6s;
+}
+.aurora span:nth-child(3) {
+  background: #35d6c3;
+  top: 30%;
+  right: 25%;
+  animation-delay: -12s;
+  opacity: 0.35;
+}
+
+@keyframes float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(4%, 6%) scale(1.08); }
+  66% { transform: translate(-4%, -4%) scale(0.96); }
+}
+
+/* Shimmer skeleton */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.04) 25%,
+    rgba(255, 255, 255, 0.09) 37%,
+    rgba(255, 255, 255, 0.04) 63%
+  );
+  background-size: 400% 100%;
+  animation: shimmer 1.4s ease infinite;
+  border-radius: var(--r-sm);
+}
+@keyframes shimmer {
+  0% { background-position: 100% 0; }
+  100% { background-position: 0 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

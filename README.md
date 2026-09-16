@@ -17,6 +17,8 @@ backend/    FastAPI + SQLAlchemy (async) + Alembic + Celery. Auth, multi-tenancy
             projects/timesheets, alerts/reports, AI layer, SSO/geo/payroll modules.
 agent/      C#/.NET 8 Windows desktop agent (service + tray): signed device auth, encrypted
             offline queue, idempotent sync, collectors (app/website/idle/screenshot).
+frontend/   Next.js 14 + TypeScript web dashboard (sleek dark/animated): login, dashboard,
+            live board, employees + timeline, attendance, shifts, alerts, settings.
 docker-compose.yml   Dev stack: Postgres, Redis, MinIO, API.
 ```
 

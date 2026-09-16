@@ -1,0 +1,158 @@
+/* Shared layout helpers for app screens */
+
+.grid {
+  display: grid;
+  gap: 16px;
+}
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.split {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+.sectionTitle {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Table */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+}
+.table th {
+  text-align: left;
+  color: var(--text-faint);
+  font-weight: 600;
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 0 14px 12px;
+  border-bottom: 1px solid var(--border);
+}
+.table td {
+  padding: 13px 14px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+.table tbody tr {
+  transition: background 0.18s;
+  cursor: default;
+}
+.table tbody tr:hover {
+  background: var(--surface);
+}
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+.rowLink {
+  cursor: pointer;
+}
+
+.nameCell {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+.nameMain {
+  font-weight: 600;
+}
+.nameSub {
+  font-size: 12px;
+  color: var(--text-faint);
+}
+
+.mono {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Mini activity bar */
+.bar {
+  width: 100px;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+.barFill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--grad-primary);
+}
+
+/* Donut/segment bars for productivity mix */
+.mix {
+  display: flex;
+  height: 12px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.06);
+  margin: 14px 0;
+}
+.mixSeg {
+  height: 100%;
+}
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  font-size: 12.5px;
+  color: var(--text-dim);
+}
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.legendDot {
+  width: 9px;
+  height: 9px;
+  border-radius: 3px;
+}
+
+.errBanner {
+  background: rgba(255, 107, 129, 0.1);
+  border: 1px solid rgba(255, 107, 129, 0.3);
+  color: #ffb3bf;
+  padding: 12px 14px;
+  border-radius: var(--r-sm);
+  font-size: 13.5px;
+  margin-bottom: 16px;
+}
+
+.filters {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+.input {
+  padding: 10px 14px;
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 14px;
+  outline: none;
+}
+.input:focus {
+  border-color: var(--accent);
+}
+
+@media (max-width: 1000px) {
+  .split {
+    grid-template-columns: 1fr;
+  }
+}
