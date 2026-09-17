@@ -78,7 +78,7 @@ export default function SettingsPage() {
               <div style={{ display: "flex", alignItems: "center", gap: 12, marginTop: 18 }}>
                 <motion.button
                   className={p.input}
-                  style={{ cursor: "pointer", background: "var(--grad-primary)", color: "#0b0f1e", fontWeight: 700, border: "none" }}
+                  style={{ cursor: "pointer", background: "var(--grad-primary)", color: "#ffffff", fontWeight: 700, border: "none" }}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   disabled={saving}

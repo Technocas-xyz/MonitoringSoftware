@@ -15,6 +15,7 @@ const NAV: NavItem[] = [
   { href: "/attendance", label: "Attendance", icon: "◔", perm: "attendance.view" },
   { href: "/shifts", label: "Shifts", icon: "◐", perm: "shift.view" },
   { href: "/alerts", label: "Alerts", icon: "◆", perm: "alert.view" },
+  { href: "/agent", label: "Agent", icon: "⬇", perm: "device.view" },
   { href: "/settings", label: "Settings", icon: "⚙", perm: "settings.manage" },
 ];
 

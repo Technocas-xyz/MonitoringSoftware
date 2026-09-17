@@ -4,13 +4,19 @@ import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { useApi } from "@/lib/useApi";
+import { api, ApiError } from "@/lib/api";
 import type { Employee } from "@/lib/types";
-import { Badge, Card, PageHeader, SkeletonRows, Empty, Avatar } from "@/components/ui";
+import { Badge, Button, Card, PageHeader, SkeletonRows, Empty, Avatar, Modal } from "@/components/ui";
+import { useAuth } from "@/lib/auth";
+import u from "@/components/ui.module.css";
 import p from "../pages.module.css";
 
 export default function EmployeesPage() {
-  const { data, loading, error } = useApi<Employee[]>("/employees");
+  const { has } = useAuth();
+  const canManage = has("employee.manage");
+  const { data, loading, error, reload } = useApi<Employee[]>("/employees");
   const [q, setQ] = useState("");
+  const [open, setOpen] = useState(false);
   const router = useRouter();
 
   const filtered = useMemo(() => {
@@ -24,7 +30,15 @@ export default function EmployeesPage() {
 
   return (
     <>
-      <PageHeader title="Employees" subtitle="Directory and per-employee productivity." />
+      <PageHeader
+        title="Employees"
+        subtitle="Directory and per-employee productivity."
+        action={
+          canManage ? (
+            <Button onClick={() => setOpen(true)}>+ New employee</Button>
+          ) : undefined
+        }
+      />
 
       {error && <div className={p.errBanner}>{error}</div>}
 
@@ -42,7 +56,16 @@ export default function EmployeesPage() {
         {loading ? (
           <SkeletonRows rows={8} />
         ) : filtered.length === 0 ? (
-          <Empty title="No employees found" hint={q ? "Try a different search." : "Create employees in the backend to populate this list."} />
+          <Empty
+            title="No employees found"
+            hint={
+              q
+                ? "Try a different search."
+                : canManage
+                ? "Add your first employee to get started."
+                : "No employees yet."
+            }
+          />
         ) : (
           <table className={p.table}>
             <thead>
@@ -82,6 +105,115 @@ export default function EmployeesPage() {
           </table>
         )}
       </Card>
+
+      <NewEmployeeModal
+        open={open}
+        onClose={() => setOpen(false)}
+        onCreated={() => {
+          setOpen(false);
+          reload();
+        }}
+      />
     </>
+  );
+}
+
+function NewEmployeeModal({
+  open,
+  onClose,
+  onCreated,
+}: {
+  open: boolean;
+  onClose: () => void;
+  onCreated: () => void;
+}) {
+  const [fullName, setFullName] = useState("");
+  const [code, setCode] = useState("");
+  const [timezone, setTimezone] = useState("");
+  const [hiredAt, setHiredAt] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState<string | null>(null);
+
+  async function submit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!fullName.trim()) {
+      setErr("Full name is required.");
+      return;
+    }
+    setBusy(true);
+    setErr(null);
+    try {
+      await api("/employees", {
+        method: "POST",
+        body: {
+          full_name: fullName.trim(),
+          employee_code: code.trim() || null,
+          timezone: timezone.trim() || null,
+          hired_at: hiredAt || null,
+        },
+      });
+      setFullName("");
+      setCode("");
+      setTimezone("");
+      setHiredAt("");
+      onCreated();
+    } catch (e2) {
+      setErr(e2 instanceof ApiError ? e2.message : "Could not create employee.");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return (
+    <Modal open={open} onClose={onClose} title="New employee">
+      <form onSubmit={submit}>
+        {err && <div className={p.errBanner}>{err}</div>}
+        <label className={u.formField}>
+          <span>Full name *</span>
+          <input
+            className={u.formInput}
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
+            placeholder="Jane Doe"
+            autoFocus
+          />
+        </label>
+        <label className={u.formField}>
+          <span>Employee code</span>
+          <input
+            className={u.formInput}
+            value={code}
+            onChange={(e) => setCode(e.target.value)}
+            placeholder="EMP-001"
+          />
+        </label>
+        <label className={u.formField}>
+          <span>Timezone</span>
+          <input
+            className={u.formInput}
+            value={timezone}
+            onChange={(e) => setTimezone(e.target.value)}
+            placeholder="e.g. America/New_York (blank = org default)"
+          />
+        </label>
+        <label className={u.formField}>
+          <span>Hired date</span>
+          <input
+            type="date"
+            className={u.formInput}
+            value={hiredAt}
+            onChange={(e) => setHiredAt(e.target.value)}
+          />
+        </label>
+        <div style={{ display: "flex", gap: 10, marginTop: 18 }}>
+          <Button variant="ghost" onClick={onClose}>
+            Cancel
+          </Button>
+          <Button type="submit" disabled={busy} full>
+            {busy ? "Creating…" : "Create employee"}
+          </Button>
+        </div>
+      </form>
+    </Modal>
   );
 }

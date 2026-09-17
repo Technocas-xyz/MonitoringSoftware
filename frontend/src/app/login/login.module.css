@@ -30,7 +30,7 @@
   place-items: center;
   border-radius: 12px;
   background: var(--grad-primary);
-  color: #0b0f1e;
+  color: #ffffff;
   font-size: 18px;
   box-shadow: var(--shadow-glow);
 }
@@ -99,7 +99,7 @@
   width: 100%;
   padding: 13px 14px;
   border-radius: var(--r-sm);
-  background: rgba(255, 255, 255, 0.03);
+  background: #ffffff;
   border: 1px solid var(--border);
   color: var(--text);
   font-size: 15px;
@@ -108,14 +108,14 @@
 }
 .field input:focus {
   border-color: var(--accent);
-  background: rgba(255, 255, 255, 0.05);
-  box-shadow: 0 0 0 4px rgba(108, 140, 255, 0.14);
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.14);
 }
 
 .error {
-  background: rgba(255, 107, 129, 0.12);
-  border: 1px solid rgba(255, 107, 129, 0.3);
-  color: #ffb3bf;
+  background: rgba(244, 63, 94, 0.1);
+  border: 1px solid rgba(244, 63, 94, 0.28);
+  color: #be123c;
   padding: 10px 12px;
   border-radius: var(--r-sm);
   font-size: 13.5px;
@@ -128,7 +128,7 @@
   border: none;
   border-radius: var(--r-sm);
   background: var(--grad-primary);
-  color: #0b0f1e;
+  color: #ffffff;
   font-weight: 700;
   font-size: 15px;
   cursor: pointer;

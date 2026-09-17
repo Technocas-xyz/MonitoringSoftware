@@ -3,10 +3,12 @@ uvicorn[standard]>=0.30
 sqlalchemy[asyncio]>=2.0.30
 asyncpg>=0.29
 alembic>=1.13
-pydantic>=2.7
+pydantic[email]>=2.7
 pydantic-settings>=2.3
+email-validator>=2.1
 python-jose[cryptography]>=3.3
 passlib[bcrypt]>=1.7
+bcrypt<4.1
 pyotp>=2.9
 python-multipart>=0.0.9
 structlog>=24.1

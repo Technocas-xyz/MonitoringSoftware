@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import styles from "./ui.module.css";
 
 /* ---------------- Card ---------------- */
@@ -110,12 +110,12 @@ export function Ring({ value, size = 132 }: { value: number; size?: number }) {
       <svg width={size} height={size}>
         <defs>
           <linearGradient id="ringgrad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#6c8cff" />
-            <stop offset="60%" stopColor="#9b6cff" />
-            <stop offset="100%" stopColor="#35d6c3" />
+            <stop offset="0%" stopColor="#6366f1" />
+            <stop offset="60%" stopColor="#8b5cf6" />
+            <stop offset="100%" stopColor="#14b8a6" />
           </linearGradient>
         </defs>
-        <circle cx={size / 2} cy={size / 2} r={r} stroke="rgba(255,255,255,0.08)" strokeWidth="10" fill="none" />
+        <circle cx={size / 2} cy={size / 2} r={r} stroke="rgba(20,24,60,0.10)" strokeWidth="10" fill="none" />
         <motion.circle
           cx={size / 2}
           cy={size / 2}
@@ -186,6 +186,83 @@ export function PageHeader({ title, subtitle, action }: { title: string; subtitl
       </div>
       {action}
     </motion.div>
+  );
+}
+
+/* ---------------- Modal ---------------- */
+export function Modal({
+  open,
+  onClose,
+  title,
+  children,
+  width = 460,
+}: {
+  open: boolean;
+  onClose: () => void;
+  title: string;
+  children: React.ReactNode;
+  width?: number;
+}) {
+  return (
+    <AnimatePresence>
+      {open && (
+        <motion.div
+          className={styles.modalOverlay}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={onClose}
+        >
+          <motion.div
+            className={`glass ${styles.modalCard}`}
+            style={{ maxWidth: width }}
+            initial={{ opacity: 0, y: 20, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 12, scale: 0.98 }}
+            transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className={styles.modalHead}>
+              <span>{title}</span>
+              <button className={styles.modalClose} onClick={onClose} aria-label="Close">
+                ✕
+              </button>
+            </div>
+            <div>{children}</div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
+
+/* ---------------- Button ---------------- */
+export function Button({
+  children,
+  onClick,
+  variant = "primary",
+  type = "button",
+  disabled = false,
+  full = false,
+}: {
+  children: React.ReactNode;
+  onClick?: () => void;
+  variant?: "primary" | "ghost" | "danger";
+  type?: "button" | "submit";
+  disabled?: boolean;
+  full?: boolean;
+}) {
+  return (
+    <motion.button
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
+      whileHover={disabled ? undefined : { scale: 1.02 }}
+      whileTap={disabled ? undefined : { scale: 0.98 }}
+      className={`${styles.btn} ${styles["btn_" + variant]} ${full ? styles.btnFull : ""}`}
+    >
+      {children}
+    </motion.button>
   );
 }
 

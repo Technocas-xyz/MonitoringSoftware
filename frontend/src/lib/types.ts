@@ -102,3 +102,19 @@ export interface AlertRow {
   status: string;
   created_at: string;
 }
+
+export interface Device {
+  id: string;
+  employee_id: string;
+  hostname: string | null;
+  os: string | null;
+  agent_version: string | null;
+  status: string; // pending | approved | revoked
+  last_seen_at: string | null;
+  approved_at: string | null;
+  revoked_at: string | null;
+}
+
+export interface DeviceApproved extends Device {
+  signing_secret: string | null; // returned once, on approval
+}
